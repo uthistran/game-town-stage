@@ -1,2 +1,2 @@
-# game-town-stage
-game town staging source
+# game-town-app
+Simple next js app
