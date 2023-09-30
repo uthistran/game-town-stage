@@ -33,10 +33,13 @@ const TournamentContainer = () => {
                     <div id="trmntDate">{currentDate}</div>
                 </div>
                 <table className="trnamentTble textAlignCentre font-Arial fontSize20">
+                  <thead>
                     <tr>
                       <th>BlackJack Daily/Weekly</th>
                       <th>Details</th>
                     </tr>
+                  </thead>
+                  <tbody>
                     <tr>
                       <td>Tournament1</td>
                       <td>16</td>
@@ -45,6 +48,7 @@ const TournamentContainer = () => {
                       <td>Tournament2</td>
                       <td>14</td>
                     </tr>
+                    </tbody>                    
                   </table>
             </div>
            <AddBanner/>
