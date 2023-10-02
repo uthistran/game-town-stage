@@ -3,35 +3,29 @@ import { useState } from "react";
 import GameCategoryMenuNavigation from "./game-category-menu-navigation";
 import GameContainer from "./game-container";
 import GameListcontainer from "./game-list-container";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { toggleGameContainerMaximized, toggleGameContainerVisbility } from "@/redux/features/game-container-visibility-slices";
 
 const GameCategory = () => {
 
-    const [isListContainerHidden, setIsListContainerHidden ] = useState<boolean>(false);
-    const [isGameContainerHidden, setGameContainerHidden ] = useState<boolean>(true);
-    const [isMaximized, setMaximized] = useState<boolean>(false);
+    const dispatch = useDispatch<AppDispatch>();
+    const isMaximized = useSelector((state: RootState) => state.rootReducer.value.isMaximized);
 
     const listContainerClick = () => {
-        setIsListContainerHidden(!isListContainerHidden);
-        setGameContainerHidden(!isGameContainerHidden);
+        dispatch(toggleGameContainerVisbility());
     }
 
     const gameContainerClose = () => {
-        setIsListContainerHidden(false);
-        setGameContainerHidden(true);
-        if(isMaximized){
-            setMaximized(false)
+        dispatch(toggleGameContainerVisbility());
+        if(isMaximized) {
+            dispatch(toggleGameContainerMaximized(false));
         }
     }
 
     const gameResize = () => {
-        if(isMaximized){
-
-            setMaximized(false)
-        }
-        else{
-
-            setMaximized(true)
-        }
+        console.log("game resize was invoked");
+        dispatch(toggleGameContainerMaximized(!isMaximized));
     }
 
     return (
@@ -42,8 +36,8 @@ const GameCategory = () => {
                 </div>
                 <GameCategoryMenuNavigation/>
             </div>
-            <GameListcontainer isHidden={isListContainerHidden} onClick={listContainerClick}/>
-            <GameContainer isHidden={isGameContainerHidden} isMaximized={isMaximized} onCloseClick={gameContainerClose} onResizeClick={gameResize}/>
+            <GameListcontainer  onClick={listContainerClick}/>
+            <GameContainer isMaximized={isMaximized} onCloseClick={gameContainerClose} onResizeClick={gameResize}/>
         </div>
     )
 }
