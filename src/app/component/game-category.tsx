@@ -3,16 +3,23 @@ import { useState } from "react";
 import GameCategoryMenuNavigation from "./game-category-menu-navigation";
 import GameContainer from "./game-container";
 import GameListcontainer from "./game-list-container";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { toggleGameContainerVisbility } from "@/redux/features/game-container-visibility-slices";
 
 const GameCategory = () => {
+
+    const dispatch = useDispatch<AppDispatch>();
 
     const [isListContainerHidden, setIsListContainerHidden ] = useState<boolean>(false);
     const [isGameContainerHidden, setGameContainerHidden ] = useState<boolean>(true);
     const [isMaximized, setMaximized] = useState<boolean>(false);
 
     const listContainerClick = () => {
-        setIsListContainerHidden(!isListContainerHidden);
-        setGameContainerHidden(!isGameContainerHidden);
+        // setIsListContainerHidden(!isListContainerHidden);
+        // setGameContainerHidden(!isGameContainerHidden);
+
+        dispatch(toggleGameContainerVisbility());
     }
 
     const gameContainerClose = () => {
@@ -42,8 +49,8 @@ const GameCategory = () => {
                 </div>
                 <GameCategoryMenuNavigation/>
             </div>
-            <GameListcontainer isHidden={isListContainerHidden} onClick={listContainerClick}/>
-            <GameContainer isHidden={isGameContainerHidden} isMaximized={isMaximized} onCloseClick={gameContainerClose} onResizeClick={gameResize}/>
+            <GameListcontainer  onClick={listContainerClick}/>
+            <GameContainer isMaximized={isMaximized} onCloseClick={gameContainerClose} onResizeClick={gameResize}/>
         </div>
     )
 }

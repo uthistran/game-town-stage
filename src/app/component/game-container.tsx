@@ -1,16 +1,21 @@
 'use client';
 
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
+
 
 type GameContainerProps = {
-    isHidden: boolean;
     isMaximized : boolean;
     onCloseClick?: () => void;
     onResizeClick?: () => void;
 }
 
-const GameContainer: React.FC<GameContainerProps>  = ({isHidden ,isMaximized, onCloseClick, onResizeClick}) => {
+const GameContainer: React.FC<GameContainerProps>  = ({isMaximized, onCloseClick, onResizeClick}) => {
+
+    const isGameContainerHidden = useSelector((state: RootState) => state.rootReducer.value.isHidden);
+
     return (
-    <div id="gameContainer" className={`${isHidden ? 'hidden' : ''} ${isMaximized ? 'absolute h-[calc(100vh-200px)]' : ''}`}>
+    <div id="gameContainer" className={`${isGameContainerHidden ? 'hidden' : ''} ${isMaximized ? 'absolute h-[calc(100vh-200px)]' : ''}`}>
     <div className="flex w-full text-black text-[31px] font-['Arial'] bg-white">
         <div className="flex-[9]">House Blackjack Tournament (NV)</div>
         <div  className='minmaxBtn flex-[0.3] pointer text-right' onClick={onResizeClick} id="maxIcon">&#128471;&#xFE0E;</div>

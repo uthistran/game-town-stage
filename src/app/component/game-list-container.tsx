@@ -1,17 +1,19 @@
+import { useSelector } from "react-redux";
 import {videoPokerItems , videoEZPokerItems, oneOnOnePokerItems} from "../data/game-items";
 import GameList from "./game-list";
+import { RootState } from "@/redux/store";
 
 interface GameListContainerProps  {
-    isHidden: boolean;
     onClick?: () => void;
 }
 
-const GameListcontainer: React.FC<GameListContainerProps> = ({isHidden ,onClick}) => {
+const GameListcontainer: React.FC<GameListContainerProps> = ({ onClick}) => {
 
+    const isGameListContainerHidden = useSelector((state: RootState) => !state.rootReducer.value.isHidden);
   
     return (
 
-        <div id="gameListContainer" className={`flex flex-row my-[20px] mx-[20px] ${isHidden ? 'hidden' : ''}`}>
+        <div id="gameListContainer" className={`flex flex-row my-[20px] mx-[20px] ${isGameListContainerHidden ? 'hidden' : ''}`}>
                     <div className="flex-1 text-black font-['Arial'] text-[20px] md:text-[16px]">
                         <div className="flex items-center">
                             <img src="assets/images/jack-trans.png" className="w-[50px]"/>

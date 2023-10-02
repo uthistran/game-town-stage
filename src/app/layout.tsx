@@ -1,5 +1,6 @@
 import "./styles/global.css"
 import Favicon from '../../public/assets/images/logo-trans.png';
+import { ReduxProvider } from "@/redux/provider";
 
 export const metadata = {
     title: 'Game Town',
@@ -14,7 +15,11 @@ export const metadata = {
   }) {
     return (
       <html lang="en">
-        <body>{children}</body>
+        <body>
+          <ReduxProvider>
+              {children}
+          </ReduxProvider>
+        </body>
       </html>
     )
   }
