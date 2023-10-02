@@ -1,10 +1,21 @@
 'use client'
 
+import { useSelector } from "react-redux";
 import AddBanner from "./add-banner";
 import DropDownList from "./drop-down-list";
 import TournamentHeader from "./tournament-header";
+import { RootState } from "@/redux/store";
+import { useEffect } from "react";
 
 const TournamentContainer = () => {
+
+    const isMaximized = useSelector((state: RootState) => state.rootReducer.value.isMaximized);
+
+    useEffect(() => {
+      console.log("isMaximized updated");
+      console.log(isMaximized);
+    },[isMaximized])
+
     let currentDate = new Date().toLocaleDateString('en-US', {
         year: 'numeric',
         month: '2-digit',
@@ -21,7 +32,7 @@ const TournamentContainer = () => {
             <TournamentHeader/>
             <div id="trmntLstHdr" className="mt-[60px] text-[30px] md:text-[18px] w-[55%] text-center font-['Arial, Helvetica, sans-serif']">TOURNAMENT LISTING</div>
         <div id='trnmtLstnHolder' className="w-[90%] flex bg-white h-[calc(100vh-200px)] mt-[28px] text-[black]">
-            <div id="trnmtdtsHdr" className="flex-[2]">
+            <div id="trnmtdtsHdr" className= {`flex-[2] ${isMaximized ? 'invisible' : ''}` }>
                 <div className="w-full m-auto text-center mt-[20px]">
                     <DropDownList/>
                 </div>
