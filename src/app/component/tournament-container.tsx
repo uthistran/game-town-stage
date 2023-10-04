@@ -50,27 +50,6 @@ const TournamentContainer = () => {
                 <div className="dateHolder margin20 font-Arial fontSize20">
                     <div id="trmntDate">{currentDate}</div>
                 </div>
-                {
-                  !isUrlHasAccount ?
-                
-                <table className="trnamentTble textAlignCentre font-Arial fontSize20">
-                  <thead>
-                    <tr>
-                      <th>BlackJack Daily/Weekly</th>
-                      <th>Details</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Tournament1</td>
-                      <td>16</td>
-                    </tr>
-                    <tr>
-                      <td>Tournament2</td>
-                      <td>14</td>
-                    </tr>
-                    </tbody>                    
-                  </table> :
                   <table className="trnamentTble textAlignCentre font-Arial fontSize20">
                     <tbody>
                       <tr>
@@ -93,7 +72,6 @@ const TournamentContainer = () => {
                       </tr>
                     </tbody>
                   </table>
-  }
             </div>
            <AddBanner/>
         </div>

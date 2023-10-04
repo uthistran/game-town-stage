@@ -13,7 +13,7 @@ const TournamentHeader: React.FC = () => {
 
     return (
         <div id="dynamicHolder" className="">
-            <div className="absolute left-[60.1%] top-[49px]">
+            <div className="absolute left-[60.1%] top-[19px]">
                 <img id="dynamicImg" className="w-[40px] align-middle" src={showTextOne ? "assets/images/logo-trans.png" : "assets/images/jack-trans.png"} />
             </div>
             <div id="dynamicHeader" className={`bg-white text-[black] text-[30px] md:text-[18px] w-[90%] text-center h-[37px] leading-[37px] font-['Boulder-Regular'] font-boulder ${showTextOne ? 'fade-in' : 'fade-out'}`}>

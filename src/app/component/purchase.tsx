@@ -44,7 +44,7 @@ const Purchase = () => {
                         </div>
                         <div className="flex flex-row justify-between">
                             <div className="flex flex-row gap-[20px]">
-                                <label>Experation Date</label>
+                                <label>Expiration Date</label>
                                 <input className="border-solid border-r border-b border-l border-t border-gray-300  w-[75px] pl-[20px]" type="text"></input>
                             </div>
                             

@@ -4,7 +4,7 @@ import DropDownList from "./drop-down-list";
 export default function HomeContainer() {
     return (
         <section className="flex">
-            <div className="flex-[65%] text-black font-[Arial] ml-[20px]">
+            <div className="flex-[60%] text-black font-[Arial] ml-[20px]">
                 <h1 className="text-[red] text-[18px] font-[800] ml-[22px]">JOIN FOR FREE:</h1>
                 <ul>
                     <li>
@@ -50,15 +50,13 @@ export default function HomeContainer() {
                 </ul>
                 <div>
                     <div className="flex mt-10px">
-                        <div className="flex-[39%]">
-                            {/* <div>
-                                <img alt="image"></img>
-                                <div className="border border-black border-solid"></div>
-                            </div>
-                            <input className="" type="file">Add Photo or Avatar</input> */}
+                        <div className="flex-[34%]">
+                            <div className="border border-black border-solid m-[10px] h-[70%] w-[80%]"> </div>
+                            <div className="underline text-[12px] font-[800]">Add Photo or Avatar</div>
+                            {/* implement file upload */}
                         </div>
-                        <div className="flex-[61%] bg-[#ff0000] mr-[20px] p-[10px]">
-                            <ul className="text-right text-[13px]">
+                        <div className="flex-[66%] bg-[#ff0000] mr-[20px] p-[10px]">
+                            <ul className="text-right text-[12px]">
                                 <li className="mb-[5px]">
                                     <label className="mr-[10px]" htmlFor="gamer_name"><b>Gamer Name</b></label>
                                     <input className="border border-black border-solid" type="text" placeholder="Gamer Name" name="gamer_name" id="gamer_name" required />
@@ -87,7 +85,8 @@ export default function HomeContainer() {
                                     <label className="mr-[10px]" htmlFor="gamer_by"><b>Birth Year</b></label>
                                     <input className="border border-black border-solid w-[50px]" type="text" placeholder="" name="gamer_by" id="gamer_by" required />
                                     <label className="mr-[10px]" htmlFor="gamer_sex"><b>Sex</b></label>
-                                    <select className="border border-solid w-[90px]" id="gamer_sex" name="cars">
+                                    <select className="border border-solid w-[90px]" id="gamer_sex" name="sex">
+                                        <option value="N"></option>
                                         <option value="M">Male</option>
                                         <option value="F">Female</option>
                                         <option value="NB">Non-Binary</option>
@@ -102,12 +101,59 @@ export default function HomeContainer() {
                     <ul>
                         <li>I have read and agree to the rules of membership for Gametown.us</li>
                         <li>You will receive a e-mail to confirm your membership.</li>
-                        <li>Please check to activate membership</li>
+                        <li className="leading-[6px]">Please check to activate membership</li>
                     </ul>
                 </div>
             </div>
-            <div className="flex-[35%]">
-
+            <div className="flex-[40%] text-center text-black font-[Arial] text-[14px]">
+                <img className="w-[36%] m-auto" src="assets/images/membership1.png" />
+                <ul className="font-[600] text-[13px]">
+                    <li className="text-[red] mb-[15px] font-[800]">One Eye Jack Member Benefits</li>
+                    <li>No Ads Before Play</li>
+                    <li>Unlimited Play</li>
+                    <li>Create Free Clubs & Teams</li>
+                    <li>Create Free Club Tournaments</li>
+                    <li>Play in League Play</li>
+                    <li>Club Forum</li>
+                    <li>1 Year Membership Receive Free T-Shirt</li>
+                </ul>
+                <div className="flex flex-col">
+                    <div className="flex mt-[20px]">
+                        <div className="flex-[13%]">
+                            <div>
+                                <input className="mr-[2px]" type="radio" name="expose_player" id="expose_player_yes" value="yes" checked />
+                                <label htmlFor="expose_player_yes">Show</label>
+                            </div>
+                            <div>
+                                <input className="mr-[2px]" type="radio" name="expose_player" id="expose_player_no" value="no" />
+                                <label htmlFor="expose_player_no">Hide</label>
+                            </div>
+                        </div>
+                        <div className="flex-[72%] text-[13px]">
+                            Listing will show only gamer’s name, City, County, State, Birth Year and Sex.
+                        </div>
+                    </div>
+                    <div className="flex mt-[20px]">
+                        <div className="flex-[9%]">
+                            <div>
+                                <input className="mr-[2px]" type="radio" name="can_contacted" id="contact_player_yes" value="yes" checked />
+                                <label htmlFor="contact_player_yes">Yes</label>
+                            </div>
+                            <div>
+                                <input className="mr-[2px]" type="radio" name="can_contacted" id="contact_player_no" value="no" />
+                                <label htmlFor="contact_player_no">No</label>
+                            </div>
+                        </div>
+                        <div className="flex-[72%] text-[13px]">
+                            Can you be contacted to be invited to Tournaments, Leagues and Events?
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-[20px]">
+                    <div className="mb-[20px]">Results will use Gamer Name</div>
+                    <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] mr-[10px] text-white" type="button" value={"Clear"} />
+                    <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] text-white" type="button" value={"Join"} />
+                </div>
             </div>
         </section>
     )

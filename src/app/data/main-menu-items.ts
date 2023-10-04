@@ -2,7 +2,7 @@
 import { MenuItem } from '../model/menu-item';
 
 const mainMenuItems: MenuItem[] = [
-    { id: 1, name: 'POKER', url: "#" },
+    { id: 1, name: 'POKER', url: "/game?subpage=game" },
     { id: 2, name: 'BLACKJACK', url: "#" },
     { id: 3, name: 'BACCARAT', url: "#" },
     { id: 4, name: 'ROULETTE', url: "#" },
