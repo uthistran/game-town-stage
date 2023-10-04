@@ -1,7 +1,7 @@
 import Menu from "./menu";
-import  menuItems  from "../data/purchase-menu-items";
+import  menuItems  from "../data/account-menu-items";
 
-const PurchaseMenu = () => {
+const AccountMenu = () => {
     return (
         <nav className="">
             <Menu items={menuItems} menuItemClassName="active:text-[red] focus:text-[red] hover:text-[red] active:underline focus:underline hover:underline"/>
@@ -9,4 +9,4 @@ const PurchaseMenu = () => {
     )
 }
 
-export default PurchaseMenu;
+export default AccountMenu;
