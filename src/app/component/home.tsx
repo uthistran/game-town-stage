@@ -1,27 +1,45 @@
 import stateItems from "../data/state-items";
 import DropDownList from "./drop-down-list";
 
-export default function HomeContainer() {
+export interface IHomeContainer {
+    isExistingMember: boolean
+}
+
+const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
     return (
         <section className="flex">
             <div className="flex-[60%] text-black font-[Arial] ml-[20px]">
-                <h1 className="text-[red] text-[18px] font-[800] ml-[22px]">JOIN FOR FREE:</h1>
-                <ul>
-                    <li>
-                        <input className="align-middle mr-[10px]" type="radio" id="freeMember" name="MemberShip" value="free" checked />
-                        <label htmlFor="freeMember" className="text-[12px] font-[800]">REDJACK MEMBERSHIP / 60 Minutes of free play per day</label><br />
-                        <p className="text-[red] text-[10px] ml-[22px]">Or Up Grade to One Eye Jack Membership with unlimited play and no advertising</p>
-                    </li>
-                    <li>
-                        <input className="align-middle mr-[10px]" type="radio" id="annualMember" name="MemberShip" value="annual" />
-                        <label htmlFor="annualMember" className="text-[12px]">Annual membership at $60/year (16 cents per day)</label><br />
-                    </li>
-                    <li>
-                        <input className="align-middle mr-[10px]" type="radio" id="monthlyMember" name="MemberShip" value="monthly" />
-                        <label htmlFor="monthlyMember" className="text-[12px]">Monthly membership at $5.99/month (20 cents a day)</label><br />
-                    </li>
-                </ul>
-
+                {!isExistingMember ?
+                    <div>
+                        <h1 className="text-[red] text-[18px] font-[800] ml-[22px]">JOIN FOR FREE:</h1>
+                        <ul>
+                            <li>
+                                <input className="align-middle mr-[10px]" type="radio" id="freeMember" name="MemberShip" value="free" checked />
+                                <label htmlFor="freeMember" className="text-[12px] font-[800]">REDJACK MEMBERSHIP / 60 Minutes of free play per day</label><br />
+                                <p className="text-[red] text-[10px] ml-[22px]">Or Up Grade to One Eye Jack Membership with unlimited play and no advertising</p>
+                            </li>
+                            <li>
+                                <input className="align-middle mr-[10px]" type="radio" id="annualMember" name="MemberShip" value="annual" />
+                                <label htmlFor="annualMember" className="text-[12px]">Annual membership at $60/year (16 cents per day)</label><br />
+                            </li>
+                            <li>
+                                <input className="align-middle mr-[10px]" type="radio" id="monthlyMember" name="MemberShip" value="monthly" />
+                                <label htmlFor="monthlyMember" className="text-[12px]">Monthly membership at $5.99/month (20 cents a day)</label><br />
+                            </li>
+                        </ul>
+                    </div>
+                    : <div className="flex m-[15px] justify-center">
+                        <img className="w-[14%] h-[0%]" src='assets/images/logo-trans.png' />
+                        <div className="font-[600]">
+                            <ul>
+                                <li>Redjack Member (Free)</li>
+                                <li>Member ID # 011218-0001NJ</li>
+                                <li>Member Since 01/12/2018</li>
+                            </ul>
+                            <input type="button" className="bg-[red] text-black p-[4px] border border-black border-solid" value={'Cancel Membership'} />
+                        </div>
+                    </div>
+                }
                 <ul className="text-right mr-[20px] text-[14px]">
                     <li className="mb-[5px]">
                         <label className="mr-[10px]" htmlFor="first_name"><b>First Name</b></label>
@@ -96,17 +114,38 @@ export default function HomeContainer() {
                         </div>
                     </div>
                 </div>
-                <div className="mt-[20px] text-[14px] flex items-baseline">
+                <div className={`mt-[20px] text-[14px] flex ${isExistingMember ? 'items-center' : 'items-baseline'}`}>
                     <input className="mr-[13px]" type="checkbox" id="terms" name="terms" value="terms" />
-                    <ul>
-                        <li>I have read and agree to the rules of membership for Gametown.us</li>
-                        <li>You will receive a e-mail to confirm your membership.</li>
-                        <li className="leading-[6px]">Please check to activate membership</li>
-                    </ul>
+                    {!isExistingMember ?
+                        <ul>
+                            <li>I have read and agree to the rules of membership for Gametown.us</li>
+                            <li>You will receive a e-mail to confirm your membership.</li>
+                            <li className="leading-[6px]">Please check to activate membership</li>
+                        </ul>
+                        : <div className="text-[11px]">I have read, understand, and agree to the Gametown.com <span className="underline">terms and conditions.</span></div>}
                 </div>
+                {isExistingMember ? <div className="text-center mt-[15px]">
+                    <input className="bg-[red] border border-black border-solid p-[4px] font-600 text-[17px] mr-[10px] text-white" type="button" value={"Cancel Changes"} />
+                    <input className="bg-[red] border border-black border-solid p-[4px] font-600 text-[17px] text-white" type="button" value={"Save Changes"} />
+                </div> : ''}
             </div>
             <div className="flex-[40%] text-center text-black font-[Arial] text-[14px]">
-                <img className="w-[36%] m-auto" src="assets/images/membership1.png" />
+                {!isExistingMember ? <img className="w-[36%] m-auto" src="assets/images/membership1.png" /> :
+                    <div className="font-[600] mt-[15px]">
+                        <ul>
+                            <li className="text-[red] mb-[15px] font-[800]">Up Grade To One Eye Jack Member</li>
+                            <li className="text-left">
+                                <input className="align-middle mr-[10px]" type="radio" id="upannualMember" name="UpMemberShip" value="annual" checked />
+                                <label htmlFor="upannualMember" className="text-[12px]">Annual membership at $60/year (16 cents per day)</label><br />
+                            </li>
+                            <li className="text-left">
+                                <input className="align-middle mr-[10px]" type="radio" id="upmonthlyMember" name="UpMemberShip" value="monthly" />
+                                <label htmlFor="upmonthlyMember" className="text-[12px]">Monthly membership at $5.99/month (20 cents a day)</label><br />
+                            </li>
+                        </ul>
+                    </div>
+                }
+
                 <ul className="font-[600] text-[13px]">
                     <li className="text-[red] mb-[15px] font-[800]">One Eye Jack Member Benefits</li>
                     <li>No Ads Before Play</li>
@@ -117,6 +156,9 @@ export default function HomeContainer() {
                     <li>Club Forum</li>
                     <li>1 Year Membership Receive Free T-Shirt</li>
                 </ul>
+                {isExistingMember ? <div className="border-b-[2px] border-solid border-black">
+                    <input type='button' className="bg-[red] border border-black border-solid font-600 text-[17px] text-white m-[15px] p-[4px]" value={'Upgrade'} />
+                </div> : ''}
                 <div className="flex flex-col">
                     <div className="flex mt-[20px]">
                         <div className="flex-[13%]">
@@ -151,10 +193,12 @@ export default function HomeContainer() {
                 </div>
                 <div className="mt-[20px]">
                     <div className="mb-[20px]">Results will use Gamer Name</div>
-                    <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] mr-[10px] text-white" type="button" value={"Clear"} />
-                    <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] text-white" type="button" value={"Join"} />
+                    {!isExistingMember ? <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] mr-[10px] text-white" type="button" value={"Clear"} /> : ''}
+                    {!isExistingMember ? <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] text-white" type="button" value={"Join"} /> : ''}
                 </div>
             </div>
-        </section>
+        </section >
     )
 }
+
+export default HomeContainer;

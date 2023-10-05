@@ -2,17 +2,17 @@
 import GameCategory from "../component/game-category";
 import TournamentContainer from "../component/tournament-container";
 
-const Account = () => {
+const Profile = () => {
 
 
     return (
         <div className="flex flex-row">
             <div className="flex-[60%] ml-[50px]">
-                    <GameCategory isExistingMember={false} />
+                    <GameCategory isExistingMember={true}/>
             </div>
             <TournamentContainer />
         </div>
     )
 }
 
-export default Account;
+export default Profile;

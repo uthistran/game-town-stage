@@ -2,19 +2,22 @@
 import GameCategoryMenuNavigation from "./game-category-menu-navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
-import HomeContainer from "./home";
+import HomeContainer, { IHomeContainer } from "./home";
+import AccountMenu from "./account-menu";
 
-const GameCategory = () => {
+const GameCategory: React.FC<IHomeContainer> = ({ isExistingMember }) => {
     const isMaximized = useSelector((state: RootState) => state.rootReducer.value.isMaximized);
     return (
         <div id="gameCategory" className="w-[90%] h-[calc(100vh-200px)] bg-white mt-[20px]">
-            <div id="gameCategoryMenu" className={`flex flex-row font-[800] text-black p-[14px] text-[13px] md:text-[12px] font-[Arial] ${isMaximized ? 'hidden' : ''}`}>
-                <div className="mr-[20px]">
-                    GAME CATEGORIES:
+            {isExistingMember ? <div className="pt-[20px] pl-[20px] text-black"><AccountMenu /></div> :
+                <div id="gameCategoryMenu" className={`flex flex-row font-[800] text-black p-[14px] text-[13px] md:text-[12px] font-[Arial] ${isMaximized ? 'hidden' : ''}`}>
+                    <div className="mr-[20px]">
+                        GAME CATEGORIES:
+                    </div>
+                    <GameCategoryMenuNavigation />
                 </div>
-                <GameCategoryMenuNavigation/>
-            </div>
-            <HomeContainer></HomeContainer>
+            }
+            <HomeContainer isExistingMember={isExistingMember}></HomeContainer>
         </div>
     )
 }

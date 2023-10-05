@@ -6,7 +6,7 @@ export default function Home() {
       <main className="">
         <div className="flex flex-row">
           <section className="flex-[60%] ml-[50px]">
-            <GameCategory/>
+            <GameCategory isExistingMember={false}/>
           </section>
         <TournamentContainer/>
         </div>
