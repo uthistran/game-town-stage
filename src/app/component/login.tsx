@@ -7,11 +7,11 @@ const Login = () => {
                 <div className="float-left text-[11px] mx-[20px]">
                     <div className="mb-[5px]">
                         <label>USER NAME</label>
-                        <input type="text" className="p-0 w-[125px] rounded-[5px] ml-[10px]" />
+                        <input type="text" className="p-0 w-[125px] rounded-[5px] ml-[10px] text-black" />
                     </div>
                     <div>
                         <label>PASS WORD</label>
-                        <input type="password" className="w-[125px] rounded-[5px] ml-[10px]" />
+                        <input type="password" className="w-[125px] rounded-[5px] ml-[10px] text-black" />
                     </div>
 
                 </div>
