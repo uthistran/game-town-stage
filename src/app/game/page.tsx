@@ -9,23 +9,6 @@ import TournamentContainer from "../component/tournament-container";
 
 const Game = () => {
 
-
-    // return (
-    //     <div className="flex flex-row">
-    //         <div className="flex-[60%] ml-[50px]">
-    //             <div className="w-[90%] h-[calc(100vh-200px)] bg-white mt-[20px] pt-[20px] pl-[20px] text-black">
-    //                 <AccountMenu/>
-    //                 <Purchase/>
-    //             </div>
-
-    //         </div>
-    //         <TournamentContainer/>
-    //     </div>
-
-
-    // )
-
-
     const dispatch = useDispatch<AppDispatch>();
     const isMaximized = useSelector((state: RootState) => state.rootReducer.value.isMaximized);
 
@@ -48,9 +31,9 @@ const Game = () => {
     return (
         <div className="flex flex-row">
             <div className="flex-[60%] ml-[50px]">
-                <div id="gameCategory" className="w-[90%] h-[calc(100vh-200px)] bg-white mt-[20px]">
+                <div id="gameCategory" className="w-[90%] h-[calc(100vh-200px)] md:h-[calc(100vh-150px)] bg-white mt-[20px] md:mt-[0px]">
                     <div id="gameCategoryMenu" className={`flex flex-row font-[800] text-black p-[14px] text-[13px] md:text-[12px] font-[Arial] ${isMaximized ? 'hidden' : ''}`}>
-                        <div className="mr-[20px]">
+                        <div className="mr-[20px] text-[red]">
                             GAME CATEGORIES:
                         </div>
                         <GameCategoryMenuNavigation />

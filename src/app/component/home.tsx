@@ -124,7 +124,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                         </ul>
                         : <div className="text-[11px]">I have read, understand, and agree to the Gametown.com <span className="underline">terms and conditions.</span></div>}
                 </div>
-                {isExistingMember ? <div className="text-center mt-[15px]">
+                {isExistingMember ? <div className="text-center mt-[15px] md:mt-[15px]">
                     <input className="bg-[red] border border-black border-solid p-[4px] font-600 text-[17px] mr-[10px] text-white" type="button" value={"Cancel Changes"} />
                     <input className="bg-[red] border border-black border-solid p-[4px] font-600 text-[17px] text-white" type="button" value={"Save Changes"} />
                 </div> : ''}
