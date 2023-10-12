@@ -114,7 +114,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                         </div>
                     </div>
                 </div>
-                <div className={`mt-[20px] text-[14px] flex ${isExistingMember ? 'items-center' : 'items-baseline'}`}>
+                <div className={`mt-[20px] text-[14px] pb-10 flex ${isExistingMember ? 'items-center' : 'items-baseline'}`}>
                     <input className="mr-[13px]" type="checkbox" id="terms" name="terms" value="terms" />
                     {!isExistingMember ?
                         <ul>
@@ -191,7 +191,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                         </div>
                     </div>
                 </div>
-                <div className="mt-[20px]">
+                <div className="mt-[20px] pb-10">
                     <div className="mb-[20px]">Results will use Gamer Name</div>
                     {!isExistingMember ? <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] mr-[10px] text-white" type="button" value={"Clear"} /> : ''}
                     {!isExistingMember ? <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] text-white" type="button" value={"Join"} /> : ''}

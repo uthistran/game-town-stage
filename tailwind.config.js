@@ -12,10 +12,17 @@ module.exports = {
     extend: {
       colors: {
         grey: "#58585a",
+      },
+      minWidth: {
+        'screen': '1300px'
+      },
+      maxWidth: {
+        'screen': '1512px'
       }
     },
     screens : {
-      'md' : {'max': '1700px'}
+      sm: '834px', // Mobile screens and smaller
+      md: '1360px', // Desktop screens and smaller
     }
   },
   plugins: [],

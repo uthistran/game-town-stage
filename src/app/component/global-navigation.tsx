@@ -15,9 +15,9 @@ const GlobalNavigation = () => {
                 <SecondaryNavigation/>
             </section>
 
-            <section className="trnmntaddSectionCls mt-[20px] md:mt-[0px] flex-[40%]">
+            <section className="trnmntaddSectionCls flex-[40%]">
                 <TournamentHeader/>
-                <div id="trmntLstHdr" className="mt-[60px] text-[30px] md:text-[18px] w-[55%] text-center font-['Arial, Helvetica, sans-serif']">TOURNAMENT LISTING</div>
+                <div id="trmntLstHdr" className="mt-[60px] text-[18px] w-[55%] text-center font-['Arial, Helvetica, sans-serif']">TOURNAMENT LISTING</div>
             </section>
 
         </div>
