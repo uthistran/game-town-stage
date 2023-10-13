@@ -36,10 +36,10 @@ const TournamentContainer = () => {
 
   }
   return (
-    <section className="trnmntaddSectionCls mt-[20px] md:mt-[0px] flex-[40%]">
+    <section className="trnmntaddSectionCls flex-[40%]">
       {/* <TournamentHeader/>
             <div id="trmntLstHdr" className="mt-[60px] text-[30px] md:text-[18px] w-[55%] text-center font-['Arial, Helvetica, sans-serif']">TOURNAMENT LISTING</div> */}
-      <div id='trnmtLstnHolder' className="w-[90%] flex bg-white h-[calc(100vh-200px)] md:h-[calc(100vh-150px)] text-[black]">
+      <div id='trnmtLstnHolder' className="w-[90%] flex bg-white h-auto md:h-[calc(100vh-150px)] text-[black]">
         <div id="trnmtdtsHdr" className={`flex-[2] ${isMaximized ? 'invisible' : ''}`}>
           <div className="w-full m-auto text-center mt-[20px]">
             
