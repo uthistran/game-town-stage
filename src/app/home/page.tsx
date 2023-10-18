@@ -6,7 +6,7 @@ const Account = () => {
 
 
     return (
-        <div className="flex flex-row">
+        <div className="flex flex-row min-w-screen">
             <div className="flex-[60%] ml-[50px]">
                     <GameCategory isExistingMember={false} />
             </div>

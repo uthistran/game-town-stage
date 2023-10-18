@@ -7,7 +7,7 @@ import TournamentHeader from "./tournament-header";
 
 const GlobalNavigation = () => {
     return(
-        <div className="flex flex-row">
+        <div className="flex flex-row min-w-screen">
             
             <section className="flex-[60%] ml-[50px]">
                 <MainNavigation/>
