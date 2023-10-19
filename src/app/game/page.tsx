@@ -23,9 +23,23 @@ const Game = () => {
         }
     }
 
+    const handleFullScreen = () =>{
+        var element = document.documentElement;
+        if(isMaximized) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        } else {
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+              }
+        }
+    }
+
     const gameResize = () => {
         console.log("game resize was invoked");
         dispatch(toggleGameContainerMaximized(!isMaximized));
+        handleFullScreen();
     }
 
     return (
