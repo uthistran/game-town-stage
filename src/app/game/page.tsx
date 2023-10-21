@@ -20,6 +20,9 @@ const Game = () => {
         dispatch(toggleGameContainerVisbility());
         if (isMaximized) {
             dispatch(toggleGameContainerMaximized(false));
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
         }
     }
 
