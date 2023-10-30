@@ -13,10 +13,6 @@ const TournamentContainer = () => {
   const isMaximized = useSelector((state: RootState) => state.rootReducer.value.isMaximized);
   const [isUrlHasAccount, setIsUrlHasAccount] = useState(false);
 
-  useEffect(() => {
-    console.log("isMaximized updated");
-    console.log(isMaximized);
-  }, [isMaximized])
 
   useEffect(() => {
     const urlHasAccount = window.location.href.includes("account");
@@ -42,23 +38,23 @@ const TournamentContainer = () => {
       <div id='trnmtLstnHolder' className="w-[90%] flex bg-white h-full md:h-[calc(100vh-150px)] text-[black] mb-5">
         <div id="trnmtdtsHdr" className={`flex-[2] ${isMaximized ? 'invisible' : ''}`}>
           <div className="w-full m-auto text-center mt-[20px]">
-            
-            <select className="border-none p-[0.75rem] text-[20px] md:text-[15px]">
-                                        {
-                                            stateItems.map((item, index) => {
-                                                return (
-                                                    <option key={index} value={item.key} selected={item.key === 'NV'}>{item.value}</option>
-                                                )
-                                            })
-                                        }
-                                    </select>
+
+            <select className="border-none p-[0.75rem] text-[20px] md:text-[15px]" defaultValue={"NV"}>
+              {
+                stateItems.map((item, index) => {
+                  return (
+                    <option key={index} value={item.key}>{item.value}</option>
+                  )
+                })
+              }
+            </select>
           </div>
           <div className="flex justify-around font-bold text-[20px] font-['Arial']">
             <a id="houseEvent" onClick={onEventTitleClick} href="#">HOUSE EVENTS</a>
             <a id="clubEvent" onClick={onEventTitleClick} href="#">CLUB EVENTS</a>
           </div>
           <div className="dateHolder margin20 font-Arial fontSize20">
-            <div  className="font-[800]" id="trmntDate">{"October"}</div>
+            <div className="font-[800]" id="trmntDate">{"October"}</div>
           </div>
           <table className="trnamentTble textAlignCentre font-Arial fontSize20">
             <tbody>
