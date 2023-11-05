@@ -6,7 +6,7 @@ const menuItems: MenuItem[] = [
     { id: 2, name: 'My Account', url: "/account?subpage=purchase" },
     { id: 3, name: 'House Events', url: "#" },
     { id: 4, name: 'Club Events', url: "#" },
-    { id: 5, name: 'Members', url: "#" },
+    { id: 5, name: 'Members', url: "/member" },
     { id: 6, name: 'Tournament Scores', url: "#" },
     { id: 7, name: 'Store', url: "#" },
     { id: 8, name: 'Help', url: "#" }
