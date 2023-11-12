@@ -14,7 +14,7 @@ export default function MainNavigation() {
             </div>
         
             <nav className="pt-[14px] text-[20px] md:text-[13px] font-['Boulder-Regular'] pr-[14px] md:pr-0">
-                <Menu items={mainMenuItems}/>
+                <Menu items={mainMenuItems} menuItemClassName="tracking-widest"/>
             </nav>
         
         </nav>
