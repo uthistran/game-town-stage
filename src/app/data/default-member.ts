@@ -2,12 +2,15 @@ import { user } from "../model/user";
 
 const member: user = {
     id: 1,
-    name: "John Doe",
-    state: "CA",
-    country: "USA",
+    name: "Smith",
+    state: "NJ",
+    country: "Union",
     gender: "Male",
-    clubs: "Poker",
-    playtime: "10"
+    clubs: "1",
+    playtime: "123h",
+    aboutme: " Senior Software Developer with over a decade of expertise in web development.",
+    gamesintrest:"Poker, Blackjack, Roulette",
+    socialmedia:"https://www.linkedin.com/in/",
 }
 
 export default member;
