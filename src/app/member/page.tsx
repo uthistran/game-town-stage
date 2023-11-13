@@ -12,7 +12,7 @@ const Member = () => {
                         <div className="m-6 flex flex-col gap-4">
                             <p className="text-black text-sm">{member.aboutme}</p>
                             <p className="text-black text-sm">{member.gamesintrest}</p>
-                            <a className="hover:underline hover:cursor-pointe text-blue-500" href={member.socialmedia}>{member.socialmedia}</a>
+                            <a className="hover:underline hover:cursor-pointe text-blue-500" href={member.socialmedia}>Social Media : {member.socialmedia}</a>
                         </div>
                         
                     </div>
@@ -26,7 +26,7 @@ const Member = () => {
                     </div>
                     <div className="message-editor border-solid border border-gray-300 w-[200px] h-[200px] m-6 rounded-lg p-[2px]">
                         <textarea id="message-input" className="w-full h-full resize-none text-black" placeholder="Enter your message"></textarea>
-                        <button id="submit-button" className="bg-red-600">Connect</button>
+                        <div className="text-center"><button id="submit-button" className="bg-red-600 rounded-md w-[100px]">Connect</button></div>
                     </div>
                 </div>
             </div>

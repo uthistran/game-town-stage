@@ -8,8 +8,8 @@ const member: user = {
     gender: "Male",
     clubs: "1",
     playtime: "123h",
-    aboutme: " Senior Software Developer with over a decade of expertise in web development.",
-    gamesintrest:"Poker, Blackjack, Roulette",
+    aboutme: " Gamer who wants to connect to fellow players and socialize.",
+    gamesintrest:"Interested Games : Poker, Blackjack, Roulette",
     socialmedia:"https://www.linkedin.com/in/",
 }
 
