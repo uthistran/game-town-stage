@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import rootReducer from './features/game-container-visibility-slices';
+import { authSlice } from './features/authSlice';
 
 export const store = configureStore({
     reducer: {
-        rootReducer
+        rootReducer,
+        auth: authSlice.reducer
     }
 });
 

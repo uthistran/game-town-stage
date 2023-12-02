@@ -1,11 +1,46 @@
+import { useDispatch } from "react-redux";
 import stateItems from "../data/state-items";
 import DropDownList from "./drop-down-list";
+import { signInAsync, signUpAsync } from "../redux/features/authSlice";
+import { auth } from "../firebase/firebase";
+import { addUserInfo } from "../services/userService";
+import { AppDispatch, RootState } from "../redux/store";
+import { useEffect } from "react";
 
 export interface IHomeContainer {
     isExistingMember: boolean
 }
 
 const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
+    const dispatch = useDispatch<AppDispatch>();
+
+    // useEffect(() => {
+    //     handleSignUp();
+    // });
+    
+    const handleSignUp = async () => {
+        try {
+            debugger;
+            console.log(
+                'User signed in with:',
+            )
+            await dispatch(signUpAsync('rjskr01@gmail.com', 'Password@123'))
+      
+            // Access the user from Redux state
+            const user = auth.currentUser;
+      
+            // Example: Storing additional info in Firestore
+            if (user) {
+            //   await addUserInfo(user.uid, {
+            //     address: '123 Main St',
+            //     gender: 'Male',
+            //     phoneNumber: '123-456-7890',
+            //   });
+            }
+          } catch (error) {
+            console.error('Error signing in:', error);
+          }
+    }
     return (
         <section className="flex">
             <div className="flex-[60%] text-black font-[Arial] ml-[20px]">
@@ -194,7 +229,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                 <div className="mt-[20px] pb-10">
                     <div className="mb-[20px]">Results will use Gamer Name</div>
                     {!isExistingMember ? <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] mr-[10px] text-white" type="button" value={"Clear"} /> : ''}
-                    {!isExistingMember ? <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] text-white" type="button" value={"Join"} /> : ''}
+                    {!isExistingMember ? <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] text-white" type="button" value={"Join"} onClick={handleSignUp}/> : ''}
                 </div>
             </div>
         </section >
