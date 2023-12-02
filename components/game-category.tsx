@@ -1,7 +1,7 @@
 "use client"
 import GameCategoryMenuNavigation from "./game-category-menu-navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/redux/store";
+import { AppDispatch, RootState } from "../redux/store";
 import HomeContainer, { IHomeContainer } from "./home";
 import AccountMenu from "./account-menu";
 

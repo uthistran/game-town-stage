@@ -4,7 +4,7 @@ import { AppProps } from 'next/app';
 import RootLayout from '../components/layout';
 import '../styles/global.css'; // Import your global styles here
 import Head from 'next/head';
-import Favicon from '../../public/assets/images/logo-trans.png';
+import Favicon from '../public/assets/images/logo-trans.png';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (

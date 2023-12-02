@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { videoPokerItems, videoEZPokerItems, oneOnOnePokerItems } from "../data/game-items";
 import GameList from "./game-list";
-import { RootState } from "@/redux/store";
+import { RootState } from "../redux/store";
 
 interface GameListContainerProps {
     onClick?: () => void;

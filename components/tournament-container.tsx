@@ -4,7 +4,7 @@ import { useSelector, useStore } from "react-redux";
 import AddBanner from "./add-banner";
 import DropDownList from "./drop-down-list";
 import TournamentHeader from "./tournament-header";
-import { RootState } from "@/redux/store";
+import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
 import stateItems from "../data/state-items";
 

@@ -1,4 +1,4 @@
-import { ReduxProvider } from "@/redux/provider";
+import { ReduxProvider } from "../redux/provider";
 import GlobalNavigation from "./global-navigation";
   
   export default function RootLayout({
