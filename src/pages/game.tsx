@@ -1,11 +1,11 @@
 "use client"
-import GameCategoryMenuNavigation from "../component/game-category-menu-navigation";
-import GameContainer from "../component/game-container";
-import GameListcontainer from "../component/game-list-container";
+import GameCategoryMenuNavigation from "../components/game-category-menu-navigation";
+import GameContainer from "../components/game-container";
+import GameListcontainer from "../components/game-list-container";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { toggleGameContainerMaximized, toggleGameContainerVisbility } from "@/redux/features/game-container-visibility-slices";
-import TournamentContainer from "../component/tournament-container";
+import TournamentContainer from "../components/tournament-container";
 
 const Game = () => {
 

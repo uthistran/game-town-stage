@@ -1,5 +1,5 @@
-import Avatar from "../component/avatar";
-import TournamentContainer from "../component/tournament-container";
+import Avatar from "../components/avatar";
+import TournamentContainer from "../components/tournament-container";
 import member from "../data/default-member";
 
 const Member = () => {

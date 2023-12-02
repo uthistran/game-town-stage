@@ -4,33 +4,33 @@
 
 @font-face {
     font-family: "Boulder-Regular";
-    src: url("../../../public/assets/fonts/Boulder-Regular.eot"),
+    src: url("../../public/assets/fonts/Boulder-Regular.eot"),
         /* IE9 Compat Modes */
-        url("../../../public/assets/fonts/Boulder-Regular.eot?#iefix") format("embedded-opentype"),
+        url("../../public/assets/fonts/Boulder-Regular.eot?#iefix") format("embedded-opentype"),
         /* IE6-IE8 */
-        url("../../../public/assets/fonts/Boulder-Regular.otf") format("opentype"),
+        url("../../public/assets/fonts/Boulder-Regular.otf") format("opentype"),
         /* Open Type Font */
-        url("../../../public/assets/fonts/Boulder-Regular.ttf") format("truetype"),
+        url("../../public/assets/fonts/Boulder-Regular.ttf") format("truetype"),
         /* Safari, Android, iOS */
-        url("../../../public/assets/fonts/Boulder-Regular.woff") format("woff"),
+        url("../../public/assets/fonts/Boulder-Regular.woff") format("woff"),
         /* Modern Browsers */
-        url("../../../public/assets/fonts/Boulder-Regular.woff2") format("woff2");
+        url("../../public/assets/fonts/Boulder-Regular.woff2") format("woff2");
     /* Modern Browsers */
 }
 
 @font-face {
     font-family: "Castle-Tult";
-    src: url("../../../public/assets/fonts/CastleTUlt.eot"),
+    src: url("../../public/assets/fonts/CastleTUlt.eot"),
         /* IE9 Compat Modes */
-        url("../../../public/assets/fonts/CastleTUlt.eot?#iefix") format("embedded-opentype"),
+        url("../../public/assets/fonts/CastleTUlt.eot?#iefix") format("embedded-opentype"),
         /* IE6-IE8 */
-        url("../../../public/assets/fonts/CastleTUlt.otf") format("opentype"),
+        url("../../public/assets/fonts/CastleTUlt.otf") format("opentype"),
         /* Open Type Font */
-        url("../../../public/assets/fonts/CastleTUlt.ttf") format("truetype"),
+        url("../../public/assets/fonts/CastleTUlt.ttf") format("truetype"),
         /* Safari, Android, iOS */
-        url("../../../public/assets/fonts/CastleTUlt.woff") format("woff"),
+        url("../../public/assets/fonts/CastleTUlt.woff") format("woff"),
         /* Modern Browsers */
-        url("../../../public/assets/fonts/CastleTUlt.woff2") format("woff2");
+        url("../../public/assets/fonts/CastleTUlt.woff2") format("woff2");
     /* Modern Browsers */
 }
 

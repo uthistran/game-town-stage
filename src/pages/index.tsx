@@ -1,5 +1,5 @@
-import GameCategory from "./component/game-category"
-import TournamentContainer from "./component/tournament-container"
+import GameCategory from "../components/game-category"
+import TournamentContainer from "../components/tournament-container"
 
 export default function Home() {
     return (

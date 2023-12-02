@@ -1,6 +1,6 @@
 "use client"
-import GameCategory from "../component/game-category";
-import TournamentContainer from "../component/tournament-container";
+import GameCategory from "../components/game-category";
+import TournamentContainer from "../components/tournament-container";
 
 const Account = () => {
 
