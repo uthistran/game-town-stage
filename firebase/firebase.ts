@@ -2,7 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, User } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { type } from 'os';
+import { getDatabase } from 'firebase/database'
 
 // const firebaseConfig = {
 //   apiKey: process.env.API_KEY,
@@ -27,4 +27,8 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const firestore = getFirestore(app);
+export const database = getDatabase(app)
+
+ 
+
 export type FirebaseUser = User;

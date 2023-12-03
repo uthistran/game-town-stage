@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
 import stateItems from "../data/state-items";
 import DropDownList from "./drop-down-list";
-import { signInAsync, signUpAsync } from "../redux/features/authSlice";
+import { signUpAsync } from "../redux/features/authSlice";
 import { auth } from "../firebase/firebase";
 import { addUserInfo } from "../services/userService";
 import { AppDispatch, RootState } from "../redux/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { user } from "../model/user";
 
 export interface IHomeContainer {
     isExistingMember: boolean
@@ -13,18 +14,31 @@ export interface IHomeContainer {
 
 const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
     const dispatch = useDispatch<AppDispatch>();
-
-    // useEffect(() => {
-    //     handleSignUp();
-    // });
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [state, setState] = useState('');
+    const [country, setCountry] = useState('');
+    const [gender, setGender] = useState('');
+    const [clubs, setClubs] = useState('');
+    const [playtime, setPlaytime] = useState('');
+  
     
     const handleSignUp = async () => {
         try {
-            debugger;
-            console.log(
-                'User signed in with:',
-            )
-            await dispatch(signUpAsync('rjskr01@gmail.com', 'Password@123'))
+            
+            const newUser: user = {
+                name: name,
+                state: state,
+                country: country,
+                gender: gender,
+                clubs: clubs,
+                playtime: playtime,
+                email: email,
+                password: password
+            };
+        
+            await dispatch(signUpAsync(newUser))
       
             // Access the user from Redux state
             const user = auth.currentUser;
@@ -86,7 +100,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                     </li>
                     <li className="mb-[5px]">
                         <label className="mr-[10px]" htmlFor="email"><b>E-Mail</b></label>
-                        <input className="border border-black border-solid w-[66%] h-[30px]" type="text" placeholder="Enter Email" name="email" id="email" required />
+                        <input className="border border-black border-solid w-[66%] h-[30px]" type="text" placeholder="Enter Email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     </li>
                     <li className="mb-[5px]">
                         <label className="mr-[10px]" htmlFor="confirm_email"><b>Confirm E-Mail</b></label>
@@ -94,11 +108,11 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                     </li>
                     <li className="mb-[5px]">
                         <label className="mr-[10px]" htmlFor="psw"><b>Password</b></label>
-                        <input className="border border-black border-solid w-[66%] h-[30px]" type="password" placeholder="Enter Password" name="psw" id="psw" required />
+                        <input className="border border-black border-solid w-[66%] h-[30px]" type="password" placeholder="Enter Password" name="psw" id="psw" value={password} onChange={(e) => setPassword(e.target.value)} required />
                     </li>
                     <li className="mb-[5px]">
                         <label className="mr-[10px]" htmlFor="psw-repeat"><b>Confirm Password</b></label>
-                        <input className="border border-black border-solid w-[66%] h-[30px]" type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required />
+                        <input className="border border-black border-solid w-[66%] h-[30px]" type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" value={password} onChange={(e) => setPassword(e.target.value)} required />
                     </li>
                 </ul>
                 <div>

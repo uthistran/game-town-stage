@@ -9,8 +9,10 @@ const member: user = {
     clubs: "1",
     playtime: "123h",
     aboutme: " Gamer who wants to connect to fellow players and socialize.",
-    gamesintrest:"Interested Games : Poker, Blackjack, Roulette",
-    socialmedia:"https://www.linkedin.com/in/",
+    gamesintrest: "Interested Games : Poker, Blackjack, Roulette",
+    socialmedia: "https://www.linkedin.com/in/",
+    email: "",
+    password: ""
 }
 
 export default member;

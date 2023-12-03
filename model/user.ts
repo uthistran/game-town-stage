@@ -1,5 +1,5 @@
 export  type user = {
-    id: number,
+    id?: number,
     name: string,
     state: string,
     country: string,
@@ -9,4 +9,6 @@ export  type user = {
     aboutme?: string,
     gamesintrest?: string,
     socialmedia?: string,
+    email: string,
+    password: string
 }
