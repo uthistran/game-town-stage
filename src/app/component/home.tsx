@@ -1,3 +1,4 @@
+import { sendMailVerification } from "@/firebase/sendMailVerification";
 import stateItems from "../data/state-items";
 import DropDownList from "./drop-down-list";
 
@@ -25,6 +26,19 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
             console.log(`email - ${form_values['email']}`);
             
             const result = register(email, password);
+
+            result.then((currentUser ) => {
+                console.log(currentUser);
+                const user = currentUser.user;
+                console.log("User registration was completed successfully..");
+                sendMailVerification(user);
+                
+            })
+            .catch((error)=> {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error(`User registration was failed due to ${error.message} with error code - ${errorCode}`);
+            });
         }
     }
 
