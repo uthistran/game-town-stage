@@ -1,11 +1,33 @@
 import stateItems from "../data/state-items";
 import DropDownList from "./drop-down-list";
 
+import { register } from "@/firebase/register";
+
 export interface IHomeContainer {
     isExistingMember: boolean
 }
 
+export interface UserType {
+    email: string,
+    password: string
+}
+
 const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
+
+    const joinBtnClick = ()=> {
+        const loginForm: HTMLFormElement = document.getElementById("login") as HTMLFormElement;
+        if(loginForm) {
+            var formData = new FormData(loginForm);
+            const form_values = Object.fromEntries(formData);
+            const email:string = form_values['email'] as string;
+            const password:string = form_values['psw'] as string;
+            console.log('form values', form_values); 
+            console.log(`email - ${form_values['email']}`);
+            
+            const result = register(email, password);
+        }
+    }
+
     return (
         <section className="flex">
             <div className="flex-[60%] text-black font-[Arial] ml-[20px]">
@@ -40,6 +62,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                         </div>
                     </div>
                 }
+            <form id="login">
                 <ul className="text-right mr-[20px] text-[14px]">
                     <li className="mb-[5px]">
                         <label className="mr-[10px]" htmlFor="first_name"><b>First Name</b></label>
@@ -66,6 +89,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                         <input className="border border-black border-solid w-[66%] h-[30px]" type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required />
                     </li>
                 </ul>
+            </form>
                 <div>
                     <div className="flex mt-10px">
                         <div className="flex-[34%]">
@@ -194,7 +218,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                 <div className="mt-[20px] pb-10">
                     <div className="mb-[20px]">Results will use Gamer Name</div>
                     {!isExistingMember ? <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] mr-[10px] text-white" type="button" value={"Clear"} /> : ''}
-                    {!isExistingMember ? <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] text-white" type="button" value={"Join"} /> : ''}
+                    {!isExistingMember ? <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] text-white" type="button" value={"Join"} onClick={joinBtnClick} /> : ''}
                 </div>
             </div>
         </section >

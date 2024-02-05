@@ -18,7 +18,7 @@ const Member = () => {
                     </div>
                     
                     <div className="flex flex-col my-6">
-                        <h1 className="text-black text-2xl">{member.name}</h1>
+                        <h1 className="text-black text-2xl">{member.firstName}</h1>
                         <p className="text-black text-sm">{member.state} / {member.country}</p>
                         <p className="text-black text-sm">{member.gender} </p>
                         <p className="text-black text-sm">{member.clubs} </p>
