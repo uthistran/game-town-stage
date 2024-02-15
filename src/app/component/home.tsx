@@ -3,6 +3,7 @@ import stateItems from "../data/state-items";
 import DropDownList from "./drop-down-list";
 
 import { register } from "@/firebase/register";
+import { useEffect, useRef, useState } from "react";
 
 export interface IHomeContainer {
     isExistingMember: boolean
@@ -14,6 +15,18 @@ export interface UserType {
 }
 
 const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
+
+    const mailInputRef = useRef<HTMLInputElement>(null);
+    const [emailValidationMessage, setEmailValidationMessage] = useState<string>('');
+
+    useEffect(()=> {
+        if(emailValidationMessage !== '') {
+            let inputElement:HTMLInputElement = document.querySelector('input#email') as HTMLInputElement;
+            inputElement.setCustomValidity(emailValidationMessage);
+            inputElement.reportValidity();
+            setEmailValidationMessage('');
+        }
+    }, [emailValidationMessage]);
 
     const joinBtnClick = ()=> {
         const loginForm: HTMLFormElement = document.getElementById("login") as HTMLFormElement;
@@ -28,7 +41,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
             const result = register(email, password);
 
             result.then((currentUser ) => {
-                console.log(currentUser);
+                
                 const user = currentUser.user;
                 console.log("User registration was completed successfully..");
                 sendMailVerification(user);
@@ -38,6 +51,9 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.error(`User registration was failed due to ${error.message} with error code - ${errorCode}`);
+                if(errorCode === 'auth/email-already-in-use') {
+                    setEmailValidationMessage("Email already in use.");
+                }
             });
         }
     }
@@ -88,7 +104,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                     </li>
                     <li className="mb-[5px]">
                         <label className="mr-[10px]" htmlFor="email"><b>E-Mail</b></label>
-                        <input className="border border-black border-solid w-[66%] h-[30px]" type="text" placeholder="Enter Email" name="email" id="email" required />
+                        <input ref={mailInputRef} className="border border-black border-solid w-[66%] h-[30px]" type="text" placeholder="Enter Email" name="email" id="email" required />
                     </li>
                     <li className="mb-[5px]">
                         <label className="mr-[10px]" htmlFor="confirm_email"><b>Confirm E-Mail</b></label>
