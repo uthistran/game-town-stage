@@ -3,7 +3,9 @@ import stateItems from "../data/state-items";
 import DropDownList from "./drop-down-list";
 
 import { register } from "@/firebase/register";
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { log } from "console";
+import { emit } from "process";
 
 export interface IHomeContainer {
     isExistingMember: boolean
@@ -14,10 +16,76 @@ export interface UserType {
     password: string
 }
 
+
+interface FormState {
+   firstName: string,
+   lastName: string,
+   email: string,
+   confirmEmail: string,
+   gamerName: string,
+   city: string,
+   country: string,
+   state: string,
+   birthYear: number,
+   sex: string,
+   isTermsAndConditionsVerified: boolean,
+   canDoEmailContact: boolean,
+   canShowOnlyGamerInformation: boolean,
+   memberShip: string,
+   psw: string ,
+   psw_repeat: string
+}
+
+interface FormError {
+    firstName: string,
+    lastName: string,
+    email: string,
+    gamerName: string,
+    city: string,
+    country: string,
+    state: string,
+    birthYear: string,
+    sex: string,
+    isTermsAndConditionsVerified: string,
+    psw: string
+}
+
 const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
 
     const mailInputRef = useRef<HTMLInputElement>(null);
     const [emailValidationMessage, setEmailValidationMessage] = useState<string>('');
+    const [formData, setFormData] = useState<FormState>({
+        firstName: "",
+        lastName: "",
+        email: "",
+        confirmEmail: "",
+        gamerName: "",
+        city: "",
+        country: "",
+        state: "",
+        birthYear: 0,
+        sex: "",
+        isTermsAndConditionsVerified: false,
+        canDoEmailContact: true,
+        canShowOnlyGamerInformation: true,
+        memberShip: "default",
+        psw: "",
+        psw_repeat: ""
+    });
+
+    const [formError,  setFormError] = useState<FormError>({
+        firstName: "First Name is required",
+        lastName: "Last Name is required",
+        email: "Email is required",
+        gamerName: "Gamer name is required",
+        city: "City name is required",
+        country: "Country is required",
+        state: "State is required",
+        birthYear: "birth Year is required",
+        sex: "sex is required.",
+        isTermsAndConditionsVerified: "Is must read and confirm terms and conditions",
+        psw: "Password required"
+    });
 
     useEffect(()=> {
         if(emailValidationMessage !== '') {
@@ -29,33 +97,134 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
     }, [emailValidationMessage]);
 
     const joinBtnClick = ()=> {
-        const loginForm: HTMLFormElement = document.getElementById("login") as HTMLFormElement;
-        if(loginForm) {
-            var formData = new FormData(loginForm);
-            const form_values = Object.fromEntries(formData);
-            const email:string = form_values['email'] as string;
-            const password:string = form_values['psw'] as string;
-            console.log('form values', form_values); 
-            console.log(`email - ${form_values['email']}`);
-            
-            const result = register(email, password);
+        let isValidData = true;
+        if(formData) {
+            let email = formData.email;
+            let psw = formData.psw;
 
-            result.then((currentUser ) => {
-                
-                const user = currentUser.user;
-                console.log("User registration was completed successfully..");
-                sendMailVerification(user);
-                
-            })
-            .catch((error)=> {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error(`User registration was failed due to ${error.message} with error code - ${errorCode}`);
-                if(errorCode === 'auth/email-already-in-use') {
-                    setEmailValidationMessage("Email already in use.");
+            if(email !== formData.confirmEmail) {
+                let inputElement: HTMLInputElement = document.querySelector('input#email') as HTMLInputElement;
+                inputElement.setCustomValidity("Both Email and Confirm Email are mismatch.");
+                inputElement.reportValidity();
+                isValidData = false;
+            }
+
+            if(psw !== formData.psw_repeat) {
+                let inputElement: HTMLInputElement = document.querySelector('input#psw') as HTMLInputElement;
+                inputElement.setCustomValidity("Both password and confirm password are mismatch.");
+                inputElement.reportValidity();
+                isValidData = false;
+            }
+
+            for(const key in formError) {
+                let error = formError[key as keyof typeof formError];
+                if(error!=="") {
+                    let inputElement: HTMLInputElement = document.querySelector(`input#${key}`) as HTMLInputElement;
+                    if(inputElement) {
+                        inputElement.setCustomValidity(error);
+                        inputElement.reportValidity();
+                    }
+                    isValidData = false;
                 }
-            });
+            }
+
+            if(isValidData) {
+                const result = register(email, psw);
+                result.then((currentUser ) => {
+                    const user = currentUser.user;
+                    console.log("User registration was completed successfully..");
+                    sendMailVerification(user);
+                    
+                })
+                .catch((error)=> {
+                    const errorCode = error.code;
+                    console.error(`User registration was failed due to ${error.message} with error code - ${errorCode}`);
+                    if(errorCode === 'auth/email-already-in-use') {
+                        setEmailValidationMessage("Email already in use.");
+                    }
+                });
+            }
+            
         }
+    }
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        console.log(`name - ${name} and value - ${value}`);
+
+        switch(name) {
+            case "isTermsAndConditionsVerified": 
+                    setFormData({
+                        ...formData,
+                        [name]: (e.target as HTMLInputElement).checked
+                    });
+                break;
+            case "canDoEmailContact":
+                setFormData({
+                    ...formData,
+                    [name]: value === "no" ? false : true
+                  });
+                break;
+            case "canShowOnlyGamerInformation":
+                setFormData({
+                    ...formData,
+                    [name]: value === "no" ? false : true
+                  });
+                break;
+            default:
+                setFormData({
+                    ...formData,
+                    [name]: value
+                  });
+                break;
+        }
+        validateField(name, value);
+    }
+
+    const validateField = (fieldName: string, value: string | number | boolean)=>{
+        let error =  '';
+        switch(fieldName) {
+            case 'firstName':
+                value = value as string;
+                error = value.trim() === '' ? 'First Name is required' : '';
+                break;
+            case 'lastName':
+                value = value as string;
+                error = value.trim() === '' ? 'Last Name is required' : '';
+                break;
+            case 'email':
+                value = value as string;
+                error = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? '' : 'Invalid email address';
+                break;
+            case 'password':
+                value = value as string;
+                error = value.trim() === '' ? 'Password is required' : '';
+                break;
+            case 'gamerName':
+                value = value as string;
+                error = value.trim() === '' ? 'Gamer name is required' : '';
+                break;
+            case 'city':
+                value = value as string;
+                error = value.trim() === '' ? 'city is required' : '';
+                break;
+            case 'country':
+                value = value as string;
+                error = value.trim() === '' ? 'country is required' : '';
+                break;
+            case 'birthYear':
+                value = value as number;
+                error = value === 0 ? 'Birth year is required' : '';
+                break;
+            case 'isTermsAndConditionsVerified':
+                value = value as boolean;
+                error = value === false ? "It must be selected": '';
+        }
+
+        setFormError({
+            ...formError,
+            [fieldName]: error
+          });
     }
 
     return (
@@ -66,16 +235,16 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                         <h1 className="text-[red] text-[18px] font-[800] ml-[22px]">JOIN FOR FREE:</h1>
                         <ul>
                             <li>
-                                <input className="align-middle mr-[10px]" type="radio" id="freeMember" name="MemberShip" value="free" checked />
+                                <input className="align-middle mr-[10px]" type="radio" id="freeMember" name="memberShip" value="free" checked onChange={handleChange}/>
                                 <label htmlFor="freeMember" className="text-[12px] font-[800]">REDJACK MEMBERSHIP / 60 Minutes of free play per day</label><br />
                                 <p className="text-[red] text-[10px] ml-[22px]">Or Up Grade to One Eye Jack Membership with unlimited play and no advertising</p>
                             </li>
                             <li>
-                                <input className="align-middle mr-[10px]" type="radio" id="annualMember" name="MemberShip" value="annual" />
+                                <input className="align-middle mr-[10px]" type="radio" id="annualMember" name="memberShip" value="annual" onChange={handleChange}/>
                                 <label htmlFor="annualMember" className="text-[12px]">Annual membership at $60/year (16 cents per day)</label><br />
                             </li>
                             <li>
-                                <input className="align-middle mr-[10px]" type="radio" id="monthlyMember" name="MemberShip" value="monthly" />
+                                <input className="align-middle mr-[10px]" type="radio" id="monthlyMember" name="memberShip" value="monthly" onChange={handleChange}/>
                                 <label htmlFor="monthlyMember" className="text-[12px]">Monthly membership at $5.99/month (20 cents a day)</label><br />
                             </li>
                         </ul>
@@ -95,28 +264,28 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
             <form id="login">
                 <ul className="text-right mr-[20px] text-[14px]">
                     <li className="mb-[5px]">
-                        <label className="mr-[10px]" htmlFor="first_name"><b>First Name</b></label>
-                        <input className="border border-black border-solid w-[66%] h-[30px]" type="text" placeholder="Enter First Name" name="first_name" id="first_name" required />
+                        <label className="mr-[10px]" htmlFor="firstName"><b>First Name</b></label>
+                        <input className="border border-black border-solid w-[66%] h-[30px]" type="text" placeholder="Enter First Name" name="firstName" id="firstName" required  onChange={handleChange}/>
                     </li>
                     <li className="mb-[5px]">
-                        <label className="mr-[10px]" htmlFor="last_name"><b>Last Name</b></label>
-                        <input className="border border-black border-solid w-[66%] h-[30px]" type="text" placeholder="Enter Last Name" name="last_name" id="last_name" required />
+                        <label className="mr-[10px]" htmlFor="lastName"><b>Last Name</b></label>
+                        <input className="border border-black border-solid w-[66%] h-[30px]" type="text" placeholder="Enter Last Name" name="lastName" id="lastName" required onChange={handleChange}/>
                     </li>
                     <li className="mb-[5px]">
                         <label className="mr-[10px]" htmlFor="email"><b>E-Mail</b></label>
-                        <input ref={mailInputRef} className="border border-black border-solid w-[66%] h-[30px]" type="text" placeholder="Enter Email" name="email" id="email" required />
+                        <input ref={mailInputRef} className="border border-black border-solid w-[66%] h-[30px]" type="text" placeholder="Enter Email" name="email" id="email" required onChange={handleChange}/>
                     </li>
                     <li className="mb-[5px]">
-                        <label className="mr-[10px]" htmlFor="confirm_email"><b>Confirm E-Mail</b></label>
-                        <input className="border border-black border-solid w-[66%] h-[30px]" type="text" placeholder="Confirm Email" name="confirm_email" id="confirm_email" required />
+                        <label className="mr-[10px]" htmlFor="confirmEmail"><b>Confirm E-Mail</b></label>
+                        <input className="border border-black border-solid w-[66%] h-[30px]" type="text" placeholder="Confirm Email" name="confirmEmail" id="confirmEmail" required onChange={handleChange}/>
                     </li>
                     <li className="mb-[5px]">
                         <label className="mr-[10px]" htmlFor="psw"><b>Password</b></label>
-                        <input className="border border-black border-solid w-[66%] h-[30px]" type="password" placeholder="Enter Password" name="psw" id="psw" required />
+                        <input className="border border-black border-solid w-[66%] h-[30px]" type="password" placeholder="Enter Password" name="psw" id="psw" required onChange={handleChange} />
                     </li>
                     <li className="mb-[5px]">
                         <label className="mr-[10px]" htmlFor="psw-repeat"><b>Confirm Password</b></label>
-                        <input className="border border-black border-solid w-[66%] h-[30px]" type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required />
+                        <input className="border border-black border-solid w-[66%] h-[30px]" type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required onChange={handleChange}/>
                     </li>
                 </ul>
             </form>
@@ -130,20 +299,20 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                         <div className="flex-[66%] bg-[#ff0000] mr-[20px] p-[10px]">
                             <ul className="text-right text-[12px]">
                                 <li className="mb-[5px]">
-                                    <label className="mr-[10px]" htmlFor="gamer_name"><b>Gamer Name</b></label>
-                                    <input className="border border-black border-solid" type="text" placeholder="Gamer Name" name="gamer_name" id="gamer_name" required />
+                                    <label className="mr-[10px]" htmlFor="gamerName"><b>Gamer Name</b></label>
+                                    <input className="border border-black border-solid" type="text" placeholder="Gamer Name" name="gamerName" id="gamerName" required  onChange={handleChange}/>
                                 </li>
                                 <li className="mb-[5px]">
-                                    <label className="mr-[10px]" htmlFor="gamer_city"><b>City</b></label>
-                                    <input className="border border-black border-solid" type="text" placeholder="Enter City" name="gamer_city" id="gamer_city" required />
+                                    <label className="mr-[10px]" htmlFor="city"><b>City</b></label>
+                                    <input className="border border-black border-solid" type="text" placeholder="Enter City" name="city" id="city" required onChange={handleChange}/>
                                 </li>
                                 <li className="mb-[5px]">
-                                    <label className="mr-[10px]" htmlFor="gamer_county"><b>County</b></label>
-                                    <input className="border border-black border-solid" type="text" placeholder="Enter County" name="gamer_county" id="gamer_county" required />
+                                    <label className="mr-[10px]" htmlFor="country"><b>County</b></label>
+                                    <input className="border border-black border-solid" type="text" placeholder="Enter County" name="country" id="country" required onChange={handleChange}/>
                                 </li>
                                 <li className="mb-[5px]">
-                                    <label className="mr-[10px]" htmlFor="gamer_state"><b>State/Plus</b></label>
-                                    <select>
+                                    <label className="mr-[10px]" htmlFor="state"><b>State/Plus</b></label>
+                                    <select onChange={handleChange} name="state">
                                         {
                                             stateItems.map((item, index) => {
                                                 return (
@@ -154,10 +323,10 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                                     </select>
                                 </li>
                                 <li className="mb-[5px]">
-                                    <label className="mr-[10px]" htmlFor="gamer_by"><b>Birth Year</b></label>
-                                    <input className="border border-black border-solid w-[50px]" type="text" placeholder="" name="gamer_by" id="gamer_by" required />
+                                    <label className="mr-[10px]" htmlFor="birthYear"><b>Birth Year</b></label>
+                                    <input className="border border-black border-solid w-[50px]" type="text" placeholder="" name="birthYear" id="birthYear" required  onChange={handleChange}/>
                                     <label className="mr-[10px]" htmlFor="gamer_sex"><b>Sex</b></label>
-                                    <select className="border border-solid w-[90px]" id="gamer_sex" name="sex">
+                                    <select className="border border-solid w-[90px]" id="gamer_sex" name="sex" onChange={handleChange}>
                                         <option value="N"></option>
                                         <option value="M">Male</option>
                                         <option value="F">Female</option>
@@ -169,7 +338,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                     </div>
                 </div>
                 <div className={`mt-[20px] text-[14px] pb-10 flex ${isExistingMember ? 'items-center' : 'items-baseline'}`}>
-                    <input className="mr-[13px]" type="checkbox" id="terms" name="terms" value="terms" />
+                    <input className="mr-[13px]" type="checkbox" id="isTermsAndConditionsVerified" name="isTermsAndConditionsVerified" value="isTermsAndConditionsVerified" onChange={handleChange} />
                     {!isExistingMember ?
                         <ul>
                             <li>I have read and agree to the rules of membership for Gametown.us</li>
@@ -217,11 +386,11 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                     <div className="flex mt-[20px]">
                         <div className="flex-[13%]">
                             <div>
-                                <input className="mr-[2px]" type="radio" name="expose_player" id="expose_player_yes" value="yes" checked />
+                                <input className="mr-[2px]" type="radio" name="canShowOnlyGamerInformation" id="expose_player_yes" value="yes" checked onChange={handleChange}/>
                                 <label htmlFor="expose_player_yes">Show</label>
                             </div>
                             <div>
-                                <input className="mr-[2px]" type="radio" name="expose_player" id="expose_player_no" value="no" />
+                                <input className="mr-[2px]" type="radio" name="canShowOnlyGamerInformation" id="expose_player_no" value="no" onChange={handleChange}/>
                                 <label htmlFor="expose_player_no">Hide</label>
                             </div>
                         </div>
@@ -232,11 +401,11 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                     <div className="flex mt-[20px]">
                         <div className="flex-[9%]">
                             <div>
-                                <input className="mr-[2px]" type="radio" name="can_contacted" id="contact_player_yes" value="yes" checked />
+                                <input className="mr-[2px]" type="radio" name="canDoEmailContact" id="contact_player_yes" value="yes" checked  onChange={handleChange} />
                                 <label htmlFor="contact_player_yes">Yes</label>
                             </div>
                             <div>
-                                <input className="mr-[2px]" type="radio" name="can_contacted" id="contact_player_no" value="no" />
+                                <input className="mr-[2px]" type="radio" name="canDoEmailContact" id="contact_player_no" value="no"   onChange={handleChange} />
                                 <label htmlFor="contact_player_no">No</label>
                             </div>
                         </div>
