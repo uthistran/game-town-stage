@@ -6,6 +6,8 @@ import { register } from "@/firebase/register";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { log } from "console";
 import { emit } from "process";
+import { addUser } from "@/firebase/user.services";
+import Toast from "./toast";
 
 export interface IHomeContainer {
     isExistingMember: boolean
@@ -33,7 +35,8 @@ interface FormState {
    canShowOnlyGamerInformation: boolean,
    memberShip: string,
    psw: string ,
-   psw_repeat: string
+   psw_repeat: string,
+   uid: string
 }
 
 interface FormError {
@@ -54,6 +57,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
 
     const mailInputRef = useRef<HTMLInputElement>(null);
     const [emailValidationMessage, setEmailValidationMessage] = useState<string>('');
+    const [isNotificationVisible, setNotificationVisible] = useState<boolean>(false);
     const [formData, setFormData] = useState<FormState>({
         firstName: "",
         lastName: "",
@@ -70,7 +74,8 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
         canShowOnlyGamerInformation: true,
         memberShip: "default",
         psw: "",
-        psw_repeat: ""
+        psw_repeat: "",
+        uid: ""
     });
 
     const [formError,  setFormError] = useState<FormError>({
@@ -108,7 +113,7 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                 inputElement.reportValidity();
                 isValidData = false;
             }
-
+          
             if(psw !== formData.psw_repeat) {
                 let inputElement: HTMLInputElement = document.querySelector('input#psw') as HTMLInputElement;
                 inputElement.setCustomValidity("Both password and confirm password are mismatch.");
@@ -130,11 +135,14 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
 
             if(isValidData) {
                 const result = register(email, psw);
+                
                 result.then((currentUser ) => {
                     const user = currentUser.user;
                     console.log("User registration was completed successfully..");
+                    formData.uid = user.uid;
+                    addUser(formData);
                     sendMailVerification(user);
-                    
+                    setNotificationVisible(true);
                 })
                 .catch((error)=> {
                     const errorCode = error.code;
@@ -284,8 +292,8 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                         <input className="border border-black border-solid w-[66%] h-[30px]" type="password" placeholder="Enter Password" name="psw" id="psw" required onChange={handleChange} />
                     </li>
                     <li className="mb-[5px]">
-                        <label className="mr-[10px]" htmlFor="psw-repeat"><b>Confirm Password</b></label>
-                        <input className="border border-black border-solid w-[66%] h-[30px]" type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required onChange={handleChange}/>
+                        <label className="mr-[10px]" htmlFor="psw_repeat"><b>Confirm Password</b></label>
+                        <input className="border border-black border-solid w-[66%] h-[30px]" type="password" placeholder="Repeat Password" name="psw_repeat" id="psw_repeat" required onChange={handleChange}/>
                     </li>
                 </ul>
             </form>
@@ -420,7 +428,9 @@ const HomeContainer: React.FC<IHomeContainer> = ({ isExistingMember }) => {
                     {!isExistingMember ? <input className="bg-[red] border border-black border-solid w-[70px] h-[30px] font-600 text-[17px] text-white" type="button" value={"Join"} onClick={joinBtnClick} /> : ''}
                 </div>
             </div>
-        </section >
+            { isNotificationVisible ? <Toast message="Email verification was sent." isShow={true}/> : null}
+        </section > 
+    
     )
 }
 

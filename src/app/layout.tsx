@@ -2,6 +2,7 @@ import "./styles/global.css"
 import Favicon from '../../public/assets/images/logo-trans.png';
 import { ReduxProvider } from "@/redux/provider";
 import GlobalNavigation from "./component/global-navigation";
+import Toast from "./component/toast";
 
 export const metadata = {
     title: 'Game Town',
@@ -20,6 +21,7 @@ export const metadata = {
           <ReduxProvider>
               <GlobalNavigation/>
               {children}
+              <Toast/>
           </ReduxProvider>
         </body>
       </html>
