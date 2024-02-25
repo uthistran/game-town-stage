@@ -1,0 +1,17 @@
+export  type user = {
+    id: number,
+    firstName: string,
+    lastName?: string,
+    email?: string,
+    password: string,
+    state: string,
+    city: string,
+    country: string,
+    birthYear: number,
+    gender: string,
+    clubs: string,
+    playtime: string,
+    aboutme?: string,
+    gamesintrest?: string,
+    socialmedia?: string,
+}
